@@ -55,7 +55,7 @@ function renderTable(rows){
 if(window.innerWidth <= 768){
 renderMobile(rows);
 }else{
-renderDesktop(rows);
+renderDesktop(rows);  
 }
 }
 
@@ -194,3 +194,36 @@ const d=new Date(r.shift_date);
 return d>=start&&d<=end;
 }));
 }
+
+// ============================================
+// FIX MOBILE RENDER
+// ============================================
+let lastMode = null;
+
+function detectMode(){
+    return window.matchMedia("(max-width: 768px)").matches ? "mobile" : "desktop";
+}
+
+function rerenderIfNeeded(){
+    const current = detectMode();
+
+    if(lastMode === null){
+        lastMode = current;
+        return;
+    }
+
+    if(current !== lastMode){
+        console.log("Viewport changed → rerender schedule");
+        lastMode = current;
+        renderTable(scheduleData);
+    }
+}
+
+// jalan saat pertama load
+window.addEventListener("load", () => {
+    lastMode = detectMode();
+});
+
+// jalan saat hp rotate / safari adjust viewport
+window.addEventListener("resize", rerenderIfNeeded);
+window.addEventListener("orientationchange", rerenderIfNeeded);
