@@ -267,6 +267,15 @@ body::before{
   .sc-time{font-size:14px;color:#6b7a88;margin-bottom:8px;font-weight:500}
 
 }
+
+.mobile-cards{display:none}
+
+@media(max-width:768px){
+  .table-wrap{display:none}
+  .mobile-cards{display:block;padding:6px}
+}
+
+
 </style>
 </head>
 <body>
@@ -345,6 +354,8 @@ body::before{
       </table>
     </div>
 
+    <div id="scheduleCards" class="mobile-cards"></div>
+  
   </div>
 
   <div id="swap" class="card hidden">
