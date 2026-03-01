@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>WFM Dashboard</title>
 
 <style>
@@ -268,7 +269,9 @@ body::before{
 
 }
 
-@media(max-width:480px){
+.mobile-cards{display:none}
+
+@media(max-width:768px){
   .table-wrap{display:none}
   .mobile-cards{display:block;padding:6px}
 }
