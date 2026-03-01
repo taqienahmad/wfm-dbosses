@@ -5,8 +5,6 @@
 <meta charset="UTF-8">
 <title>WFM Dashboard</title>
 
-
-
 <style>
 
 /* =========================
@@ -15,18 +13,15 @@
 body{
   margin:0;
   font-family:Segoe UI,Arial;
-
-  /* background gambar */
   background:url("images/bgdashboard.png") center/cover no-repeat fixed;
   position:relative;
 }
 
-/* layer redup di atas gambar */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:rgba(255, 255, 255, 0.45); /* transparansi */
+  background:rgba(255,255,255,.45);
   backdrop-filter:blur(1px);
   z-index:-1;
 }
@@ -34,47 +29,21 @@ body::before{
 /* =========================
    HEADER
 ========================= */
-
-.header{
-  background:linear-gradient(90deg,#7b252b,#5c0f15,#8e3137);
-  color:#fff;
-  padding:16px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 12px rgba(0,0,0,0.25);
-}
-
-
 .topbar{
   height:72px;
   background:linear-gradient(90deg,#5c0f15,#7d141b);
-  color:white;
+  color:#fff;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
-  box-shadow:0 3px 12px rgba(0,0,0,0.2);
+  box-shadow:0 3px 12px rgba(0,0,0,.2);
 }
 
-/* LEFT */
-.topbar-left{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.logo{height:44px}
+.system-name{font-size:20px;font-weight:600;letter-spacing:.5px}
 
-.logo{
-  height:44px;
-}
-
-.system-name{
-  font-size:20px;
-  font-weight:600;
-  letter-spacing:.5px;
-}
-
-/* CENTER */
 .topbar-center{
   position:absolute;
   left:50%;
@@ -84,20 +53,16 @@ body::before{
   opacity:.95;
 }
 
-/* RIGHT */
 .logout{
   background:#070707;
-  color:white;
+  color:#fff;
   border:none;
   padding:10px 18px;
   border-radius:8px;
   cursor:pointer;
   transition:.2s;
 }
-
-.logout:hover{
-  background:#1f1f1f;
-}
+.logout:hover{background:#1f1f1f}
 
 /* =========================
    MENU BAR
@@ -111,12 +76,6 @@ body::before{
   border-bottom:1px solid #e3e7ea;
 }
 
-/* .menu{
-  position:sticky;
-  top:72px;
-  z-index:20;
-} */
-
 .menu button{
   padding:10px 18px;
   border:none;
@@ -126,14 +85,10 @@ body::before{
   font-weight:500;
   transition:.2s;
 }
-
-.menu button:hover{
-  background:#dde5ea;
-}
-
+.menu button:hover{background:#dde5ea}
 .menu button.active{
   background:#5c0f15;
-  color:white;
+  color:#fff;
   box-shadow:0 3px 8px rgba(0,0,0,.15);
 }
 
@@ -142,23 +97,24 @@ body::before{
 ========================= */
 .container{
   padding:28px;
+  padding-bottom:70px; /* footer safe */
 }
 
 .card{
-  background:rgba(255,255,255,0.15);
+  background:rgba(255,255,255,.15);
   backdrop-filter:blur(10px);
   border-radius:14px;
   padding:22px;
   margin-bottom:18px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.12);
-  border:1px solid rgba(255,255,255,0.5);
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+  border:1px solid rgba(255,255,255,.5);
 }
 
-/* FILTER BAR */
+/* FILTER */
 .filter-bar{
   display:flex;
   gap:10px;
-  margin:18px 0 14px 0;
+  margin:18px 0 14px;
   align-items:center;
   flex-wrap:wrap;
 }
@@ -172,21 +128,20 @@ body::before{
   transition:.2s;
   font-weight:500;
 }
-
-.filter-btn:hover{
-  background:#5c0f15;
-  color:white;
-}
+.filter-btn:hover{background:#5c0f15;color:white}
 
 .calendar-box input{
   padding:8px 12px;
   border-radius:8px;
   border:1px solid #ccd4da;
-  background:white;
+  background:#fff;
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+========================= */
 .table-wrap{
+  max-height:65vh;
   overflow:auto;
   border-radius:12px;
 }
@@ -194,18 +149,20 @@ body::before{
 .schedule-table{
   width:100%;
   border-collapse:collapse;
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,.85);
   backdrop-filter:blur(6px);
 }
 
-.schedule-table th{
+.schedule-table thead th{
   position:sticky;
   top:0;
+  z-index:5;
   background:#5c0f15;
-  color:white;
+  color:#fff;
   padding:12px;
   text-align:left;
   font-weight:600;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
 }
 
 .schedule-table td{
@@ -213,40 +170,13 @@ body::before{
   border-bottom:1px solid #e5eaee;
 }
 
-.schedule-table tr:nth-child(even){
-  background:#f7fafc;
-}
+.schedule-table tr:nth-child(even){background:#f7fafc}
+.schedule-table tr:hover{background:#eef3f7}
 
-.schedule-table tr:hover{
-  background:#eef3f7;
-}
-
-
-/* HEADER TABLE STICKY */
-.schedule-table thead th{
-  position:sticky;
-  top:0;
-  z-index:5;
-  background:#5c0f15;
-  color:white;
-}
-
-.table-wrap{
-  max-height:65vh;
-  overflow:auto;
-  border-radius:12px;
-}
-
-.schedule-table thead th{
-  box-shadow:0 2px 6px rgba(0,0,0,.25);
-}
-
-/* STATUS COLORS */
+/* STATUS */
 .status-off{color:#c0392b;font-weight:600}
 .status-actual{color:#2c7be5;font-weight:600}
 .status-planned{color:#7f8c8d;font-weight:600}
-
-
 
 /* =========================
    FOOTER
@@ -256,7 +186,7 @@ body::before{
   padding:14px;
   font-size:14px;
   color:#5a6772;
-  background:rgba(255,255,255,0.65);
+  background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
   border-top:1px solid #e1e6ea;
   position:fixed;
@@ -264,28 +194,14 @@ body::before{
   width:100%;
 }
 
-
-
-/* biar konten ga ketutup footer */
-.container{
-  padding:28px;
-  padding-bottom:70px;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(6px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-
 .hidden{display:none}
 
-/* ===============================
-   MOBILE RESPONSIVE
-================================*/
-@media (max-width: 768px){
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width:768px){
 
-  /* header */
+  /* HEADER */
   .topbar{
     height:auto;
     padding:12px 16px;
@@ -293,149 +209,64 @@ body::before{
     gap:6px;
     text-align:center;
   }
+  .topbar-left{justify-content:center}
+  .topbar-center{position:static;transform:none;font-size:14px}
+  .logo{height:32px}
+  .logout{padding:8px 14px;font-size:13px}
 
-  .topbar-left{
-    justify-content:center;
-  }
-
-  .topbar-center{
-    position:static;
-    transform:none;
-    font-size:14px;
-  }
-
-  .logo{
-    height:32px;
-  }
-
-  .logout{
-    padding:8px 14px;
-    font-size:13px;
-  }
-
-  /* menu horizontal scroll */
+  /* MENU */
   .menu{
     overflow-x:auto;
     white-space:nowrap;
     padding:10px;
     gap:8px;
   }
+  .menu button{flex:0 0 auto;padding:8px 14px;font-size:13px}
 
-  .menu button{
-    flex:0 0 auto;
-    padding:8px 14px;
-    font-size:13px;
+  /* CONTENT */
+  .container{padding:14px;padding-bottom:80px}
+  .card{padding:14px;border-radius:12px}
+
+  /* FILTER */
+  .filter-bar{flex-direction:column;align-items:stretch}
+  .filter-btn{width:100%}
+
+  /* TABLE → CARD MODE */
+  .schedule-table thead{display:none}
+  .schedule-table tr{border:none}
+  .schedule-table td{padding:6px;border:none}
+
+  .shift-card{
+    background:rgba(255,255,255,.92);
+    border-radius:18px;
+    padding:18px 16px;
+    margin:14px 4px;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+    text-align:center;
   }
 
-  /* container */
-  .container{
-    padding:14px;
-    padding-bottom:80px;
+  .sc-date{font-size:20px;font-weight:700;margin-bottom:4px;color:#2c3e50}
+  .sc-shift{font-size:18px;font-weight:600;color:#7b252b;margin-bottom:6px}
+  .sc-status{font-weight:700;margin-bottom:12px}
+
+  .sc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px 10px;
+    margin-top:10px;
   }
 
-  .card{
-    padding:14px;
+  .sc-grid div{
+    background:#f4f6f8;
     border-radius:12px;
+    padding:10px 6px;
   }
 
-  /* filter bar wrap */
-  .filter-bar{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .filter-btn{
-    width:100%;
-  }
+  .sc-grid label{font-size:12px;color:#6b7a88}
+  .sc-grid span{font-size:16px;font-weight:700;color:#2c3e50}
+  .sc-time{font-size:14px;color:#6b7a88;margin-bottom:8px;font-weight:500}
 
 }
-
-
-/* ================= MOBILE SHIFT CARD ================= */
-@media(max-width:768px){
-
-.schedule-table thead{display:none;}
-.schedule-table tr{border:none;}
-.schedule-table td{padding:6px;border:none;}
-
-.shift-card{
-  background:rgba(255,255,255,0.92);
-  border-radius:18px;
-  padding:18px 16px;
-  margin:14px 4px;
-  box-shadow:0 8px 22px rgba(0,0,0,.08);
-  text-align:center;
-}
-
-/* DATE */
-.sc-date{
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:4px;
-  color:#2c3e50;
-}
-
-/* SHIFT TEXT */
-.sc-shift{
-  font-size:18px;
-  font-weight:600;
-  color:#7b252b;
-  margin-bottom:6px;
-}
-
-/* STATUS */
-.sc-status{
-  font-weight:700;
-  margin-bottom:12px;
-}
-
-.status-actual{color:#27ae60}
-.status-off{color:#e74c3c}
-.status-planned{color:#7f8c8d}
-
-/* grid info */
-.sc-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px 10px;
-  margin-top:10px;
-  text-align:center;
-}
-
-.sc-grid div{
-  background:#f4f6f8;
-  border-radius:12px;
-  padding:10px 6px;
-}
-
-.sc-grid label{
-  display:block;
-  font-size:12px;
-  color:#6b7a88;
-  margin-bottom:3px;
-}
-
-.sc-grid span{
-  font-size:16px;
-  font-weight:700;
-  color:#2c3e50;
-}
-
-.sc-time{
-  font-size:14px;
-  color:#6b7a88;
-  margin-bottom:8px;
-  font-weight:500;
-}
-
-}
-
-@media (max-width:768px){
-  .menu{
-    top:110px;
-  }
-}
-
 </style>
 </head>
 <body>
@@ -446,7 +277,7 @@ body::before{
 <header class="topbar">
 
   <div class="topbar-left">
-    <img src="images/logo.png" class="logo">
+    <img src="./images/logo.png" class="logo">
     <span class="system-name"></span>
   </div>
 
@@ -538,19 +369,6 @@ body::before{
 
 </div>
 
-
-
-    <!-- shift_date,
-    planned_shift,
-    actual_shift,
-    break_start,
-    break_end,
-    planned_hours,
-    actual_hours,
-    planned:master_shift!fk_planned_shift(start_time,end_time),
-    actual:master_shift!fk_actual_shift(start_time,end_time) -->
-
-
 <!-- FOOTER -->
 <footer class="footer">
   Agent Management System @2026
@@ -560,13 +378,13 @@ body::before{
 <!-- ================= JS LOAD ORDER ================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabaseClient.js"></script>
+<script src="./js/supabaseClient.js"></script>
 
 <!-- modules -->
-<script src="js/modules/schedule.js"></script>
+<script src="./js/modules/schedule.js"></script>
 
 <!-- controller -->
-<script src="js/dashboard.js"></script>
+<script src="./js/dashboard.js"></script>
 
 
 </body>
