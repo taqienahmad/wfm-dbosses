@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WFM Login</title>
+
+<link rel="stylesheet" href="css/login.css">
+
+<!-- Supabase Library (WAJIB PALING ATAS) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+<div class="schedule-toolbar">
+    <button onclick="filterToday()">Today</button>
+    <button onclick="filterWeek()">This Week</button>
+    <button onclick="filterMonth()">This Month</button>
+
+    <div class="date-range">
+        <input type="date" id="startDate">
+        <span>→</span>
+        <input type="date" id="endDate">
+    </div>
+
+    <button onclick="filterRange()">Apply</button>
+</div>
+<div class="login-container">
+  <div class="login-card">
+
+    <div class="logo">
+      <img src="images/logo.png" alt="logo">
+      <h2>TransRoaster</h2>
+      <p>Agent Management System</p>
+    </div>
+
+    <!-- FORM LOGIN -->
+<form id="loginForm">
+
+  <div class="input-group">
+    <label for="agent_id">Agent ID</label>
+    <input type="text" id="agent_id" placeholder="Enter your ID" required>
+  </div>
+
+  <div class="input-group">
+    <label for="password">Password</label>
+    <div class="password-box">
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <span id="togglePass">👁</span>
+    </div>
+  </div>
+
+  <div id="error" class="error"></div>
+
+  <button type="submit" id="loginBtn">Login</button>
+  <div id="loading" class="loading" style="display:none;">Checking account...</div>
+
+</form>
+
+
+  </div>
+</div>
+
+
+<!-- ========================= -->
+<!-- LOAD ORDER PENTING BANGET -->
+<!-- ========================= -->
+
+<!-- 1. Koneksi DB -->
+<script src="js/supabaseClient.js"></script>
+
+<!-- 2. Logic Login -->
+<script src="js/login.js"></script>
+
+<!-- 3. UI Script -->
+<script>
+document.getElementById("togglePass").addEventListener("click", function(){
+  const pass = document.getElementById("password");
+  pass.type = pass.type === "password" ? "text" : "password";
+});
+</script>
+
+</body>
+</html>
