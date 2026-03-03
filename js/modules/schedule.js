@@ -325,15 +325,16 @@ function formatToHMS(seconds) {
 
 function formatHoursToHMS(hours){
 
-  if(!hours || isNaN(hours)) return "00:00:00";
+  if(hours === null || hours === undefined || isNaN(hours))
+    return "00:00:00";
 
-  const totalSeconds = Number(hours) * 3600;
+  const totalSeconds = Math.round(Number(hours) * 3600);
 
   const hrs  = Math.floor(totalSeconds / 3600);
   const mins = Math.floor((totalSeconds % 3600) / 60);
-  const secs = Math.floor(totalSeconds % 60);
+  const secs = totalSeconds % 60;
 
   return `${hrs.toString().padStart(2,'0')}:` +
          `${mins.toString().padStart(2,'0')}:` +
          `${secs.toString().padStart(2,'0')}`;
-}   
+}
