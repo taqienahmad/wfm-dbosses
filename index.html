@@ -238,34 +238,39 @@ body::before{
   .schedule-table td{padding:6px;border:none}
 
   .shift-card{
-    background:rgba(255,255,255,.92);
+    background:rgba(255,255,255,.4);
     border-radius:18px;
     padding:18px 16px;
     margin:14px 4px;
     box-shadow:0 8px 22px rgba(0,0,0,.08);
     text-align:center;
+    backdrop-filter: blur(6px);
   }
 
-  .sc-date{font-size:20px;font-weight:700;margin-bottom:4px;color:#2c3e50}
-  .sc-shift{font-size:18px;font-weight:600;color:#7b252b;margin-bottom:6px}
+  .sc-date{font-size:20px;font-weight:700;margin-bottom:4px;color:#00060c}
+  .sc-shift{font-size:18px;font-weight:600;color:#0a0001;margin-bottom:6px}
   .sc-status{font-weight:700;margin-bottom:12px}
 
   .sc-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:14px 10px;
+    gap:0px 0px;
     margin-top:10px;
   }
 
   .sc-grid div{
-    background:#f4f6f8;
-    border-radius:12px;
-    padding:10px 6px;
+    background: rgb(255 252 64 / 50%);
+    padding: 4px;
+    margin: 8px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+
   }
 
-  .sc-grid label{font-size:12px;color:#6b7a88}
+  .sc-grid label{font-size:12px;color:#000000}
   .sc-grid span{font-size:16px;font-weight:700;color:#2c3e50}
-  .sc-time{font-size:14px;color:#6b7a88;margin-bottom:8px;font-weight:500}
+  .sc-time{font-size:14px;color:#000205;margin-bottom:8px;font-weight:500}
 
 }
 
@@ -274,6 +279,60 @@ body::before{
 @media(max-width:768px){
   .table-wrap{display:none}
   .mobile-cards{display:block;padding:6px}
+}
+
+
+
+
+
+/* CSS SUMMARY */
+
+.schedule-right {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+  margin-bottom: 10px;
+}
+
+.left-filter {
+  flex: 1;
+}
+
+.right-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  width: 420px;
+}
+
+.summary-card {
+  background: rgb(255 252 64 / 50%);;
+  padding: 9px;
+  margin: 4px;
+  border-radius: 2px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(6px);
+  transition: 0.3s;
+  width: 100px;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.mini-title {
+  font-size: 13px;
+  color: #160000;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.mini-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #7a0f14;
+  text-align: center;
 }
 
 
@@ -316,6 +375,7 @@ body::before{
 <!-- CONTENT -->
 <div class="container">
 
+<div class="schedule-left">
   <div id="schedule" class="card hidden">
 
    <h2>📅 View Schedule</h2>
@@ -335,6 +395,31 @@ body::before{
       </div>
 
     </div>
+</div>
+
+<div class="schedule-right">
+    <div class="summary-card">
+      <div class="mini-title">Total Volume</div>
+      <div class="mini-value" id="sumVolume">0</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="mini-title">Actual Ratio</div>
+      <div class="mini-value" id="ratioActual">0%</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="mini-title">AHT</div>
+      <div class="mini-value" id="avgAHT">00:00</div>
+    </div>
+
+    <div class="summary-card">
+      <div class="mini-title">Occupancy</div>
+      <div class="mini-value" id="occupancy">0%</div>
+    </div>
+
+  </div>
+</div>
 
     <!-- TABLE -->
     <div class="table-wrap">
@@ -349,6 +434,8 @@ body::before{
             <th>Break End</th>
             <th>Planned</th>
             <th>Actual</th>
+            <th>Volume</th>
+            <th>Handling Time</th>                        
             <th>Status</th>
           </tr>
         </thead>
@@ -358,7 +445,7 @@ body::before{
 
     <div id="scheduleCards" class="mobile-cards"></div>
   
-  </div>
+
 
   <div id="swap" class="card hidden">
     <h2>🔁 Shift Swap</h2>
