@@ -374,97 +374,69 @@ body::before{
 
 <!-- CONTENT -->
 <div class="container">
+  <div class="schedule-left">
+    <div id="schedule" class="card hidden">
+      <h2>📅 View Schedule</h2>
+      <!-- FILTER BAR -->
+      <div class="filter-bar">
 
-<div class="schedule-left">
-  <div id="schedule" class="card hidden">
+        <button class="filter-btn" onclick="filterToday()">Today</button>
+        <button class="filter-btn" onclick="filterWeek()">This Week</button>
+        <button class="filter-btn" onclick="filterMonth()">This Month</button>
 
-   <h2>📅 View Schedule</h2>
-
-    <!-- FILTER BAR -->
-    <div class="filter-bar">
-
-      <button class="filter-btn" onclick="filterToday()">Today</button>
-      <button class="filter-btn" onclick="filterWeek()">This Week</button>
-      <button class="filter-btn" onclick="filterMonth()">This Month</button>
-
-      <div class="calendar-box">
-        <input type="date" id="startDate">
-        <span style="margin:0 6px;">→</span>
-        <input type="date" id="endDate">
-        <button class="filter-btn" onclick="filterRange()">Apply</button>
+        <div class="calendar-box">
+          <input type="date" id="startDate">
+          <span style="margin:0 6px;">→</span>
+          <input type="date" id="endDate">
+          <button class="filter-btn" onclick="filterRange()">Apply</button>
+        </div>
+    </div>
+    <!-- CARD BOARD -->
+    <div class="schedule-right">
+      <div class="summary-card">
+        <div class="mini-title">Volume</div>
+        <div class="mini-value" id="sumVolume">0</div>
       </div>
-<<<<<<< HEAD
-    </div>
-=======
 
-    </div>
-</div>
->>>>>>> 03523a79d6e1fe0aa598eb49b75c528edba9537f
+      <div class="summary-card">
+        <div class="mini-title">Act. Hours</div>
+        <div class="mini-value" id="ratioActual">0%</div>
+      </div>
 
-<div class="schedule-right">
-    <div class="summary-card">
-      <div class="mini-title">Volume</div>
-      <div class="mini-value" id="sumVolume">0</div>
-    </div>
+      <div class="summary-card">
+        <div class="mini-title">AHT</div>
+        <div class="mini-value" id="avgAHT">00:00</div>
+      </div>
 
-    <div class="summary-card">
-      <div class="mini-title">Act. Hours</div>
-      <div class="mini-value" id="ratioActual">0%</div>
-    </div>
-
-    <div class="summary-card">
-      <div class="mini-title">AHT</div>
-      <div class="mini-value" id="avgAHT">00:00</div>
-    </div>
-
-    <div class="summary-card">
-      <div class="mini-title">Occupancy</div>
-      <div class="mini-value" id="occupancy">0%</div>
-    </div>
-
-  </div>
-<<<<<<< HEAD
-<!-- TABLE -->
-=======
-</div>
-
-    <!-- TABLE -->
->>>>>>> 03523a79d6e1fe0aa598eb49b75c528edba9537f
-    <div class="table-wrap">
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Shift</th>
-            <th>Start Time</th>
-            <th>End Time</th>                        
-            <th>Break Start</th>
-            <th>Break End</th>
-            <th>Planned</th>
-            <th>Actual</th>
-            <th>Volume</th>
-            <th>Handling Time</th>                        
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="scheduleBody"></tbody>
-      </table>
-    </div>
-<<<<<<< HEAD
+      <div class="summary-card">
+        <div class="mini-title">Occupancy</div>
+        <div class="mini-value" id="occupancy">0%</div>
+      </div>
+    </div>  
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Shift</th>
+              <th>Start Time</th>
+              <th>End Time</th>                        
+              <th>Break Start</th>
+              <th>Break End</th>
+              <th>Planned</th>
+              <th>Actual</th>
+              <th>Volume</th>
+              <th>Handling Time</th>                        
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleBody"></tbody>
+        </table>
+      </div>  
     <div id="scheduleCards" class="mobile-cards"></div>   
+  </div> -schedule left
 </div>
-
-</div>
-
-
-  
-
-
-=======
-
-    <div id="scheduleCards" class="mobile-cards"></div>
->>>>>>> 03523a79d6e1fe0aa598eb49b75c528edba9537f
-  
 
 
   <div id="swap" class="card hidden">
@@ -487,7 +459,7 @@ body::before{
     <div>Coming soon...</div>
   </div>
 
-</div>
+
 
 <!-- FOOTER -->
 <footer class="footer">
