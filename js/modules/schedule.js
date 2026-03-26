@@ -6,7 +6,7 @@ console.log("SCHEDULE JS LOADED");
 // ================= LOAD =================
 window.loadSchedule = async function(){
 
-  const session = JSON.parse(localStorage.getItem("wfm_user"));
+  const session = JSON.parse(sessionStorage.getItem("wfm_user"));
   if(!session) return;
 
   const tbody = document.getElementById("scheduleBody");
