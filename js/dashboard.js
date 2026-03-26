@@ -1,16 +1,25 @@
-// ========================
-// SESSION CHECK
-// ========================
-const session = JSON.parse(localStorage.getItem("wfm_user"));
-if(!session) location.href = "login.html";
+let session = null;
 
-// tampilkan nama user
-document.getElementById("welcome").innerText =
-  `Welcome, ${session.agent_name} (${session.role})`;
+try {
+  session = JSON.parse(localStorage.getItem("wfm_user"));
+} catch(e){
+  console.error("Session error", e);
+}
 
+if(!session){
+  window.location.replace("login.html");
+}
 
 // ========================
-// ROLE MENU FILTER
+// USER INFO
+// ========================
+const welcomeEl = document.getElementById("welcome");
+if(welcomeEl && session){
+  welcomeEl.innerText = `Welcome, ${session.agent_name} (${session.role})`;
+}
+
+// ========================
+// ROLE MENU
 // ========================
 document.querySelectorAll("#menuBar button").forEach(btn=>{
   if(session.role !== 'admin' && btn.dataset.page === 'admin'){
@@ -18,72 +27,46 @@ document.querySelectorAll("#menuBar button").forEach(btn=>{
   }
 });
 
-
 // ========================
-// NAVIGATION (CONTROLLER)
+// NAVIGATION
 // ========================
 document.querySelectorAll("#menuBar button").forEach(btn=>{
-  btn.onclick = async ()=>{
+  btn.addEventListener("click", async ()=>{
 
-    // active button
-    document.querySelectorAll('#menuBar button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('#menuBar button')
+      .forEach(b=>b.classList.remove('active'));
+
     btn.classList.add('active');
 
-    // show page
-    document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
-    document.getElementById(btn.dataset.page).classList.remove('hidden');
+    document.querySelectorAll('.card')
+      .forEach(c=>c.classList.add('d-none'));
 
-    // call module
+    document.getElementById(btn.dataset.page)
+      .classList.remove('d-none');
+
     switch(btn.dataset.page){
-
-        case "schedule":
-            if(window.loadSchedule) await loadSchedule();
-        break;
-
-        case "swap":
-            if(window.loadSwap) await loadSwap();
-        break;
-
-        case "attendance":
-            if(window.loadAttendance) await loadAttendance();
-        break;
-
-        case "productivity":
-            if(window.loadProductivity) await loadProductivity();
-        break;
-
-        case "admin":
-            if(window.loadAdmin) await loadAdmin();
-        break;
+      case "schedule":
+        if(window.loadSchedule) await loadSchedule();
+      break;
     }
-  }
+
+  });
 });
 
-
-// ==============================
-// AUTO OPEN DEFAULT TAB (SAFE)
-// ==============================
-window.addEventListener("load", async () => {
-
-  // tunggu schedule module siap
-  let retry = 0;
-  while(!window.loadSchedule && retry < 50){
-      await new Promise(r => setTimeout(r,100));
-      retry++;
+// ========================
+// DEFAULT LOAD
+// ========================
+window.addEventListener("load", () => {
+  const btn = document.querySelector('[data-page="schedule"]');
+  if(btn){
+    setTimeout(()=>btn.click(), 200);
   }
-
-  const firstBtn = document.querySelector('#menuBar button[data-page="schedule"]');
-  if(firstBtn){
-      firstBtn.click();
-  }
-
 });
-
 
 // ========================
 // LOGOUT
 // ========================
 function logout(){
-    localStorage.removeItem("wfm_user");
-    location.href="login.html";
+  localStorage.removeItem("wfm_user");
+  window.location.replace("login.html");
 }
