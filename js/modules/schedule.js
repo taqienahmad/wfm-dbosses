@@ -1,4 +1,5 @@
 let scheduleData = [];
+let currentViewData = [];
 
 // ================= LOAD =================
 window.loadSchedule = async function(){
@@ -36,16 +37,22 @@ window.loadSchedule = async function(){
     }
 
     scheduleData = data || [];
+    currentViewData = [...scheduleData];
 
-    renderTable(scheduleData);
-    updateSummary(scheduleData);
+    renderAll(currentViewData);
 
   } catch(err){
     console.error(err);
   }
 };
 
-// ================= RENDER =================
+// ================= MASTER RENDER =================
+function renderAll(rows){
+  renderTable(rows);
+  updateSummary(rows);
+}
+
+// ================= RENDER SWITCH =================
 function renderTable(rows){
   if(window.innerWidth <= 768){
     renderMobile(rows);
@@ -102,15 +109,15 @@ function renderDesktop(rows){
 // ================= MOBILE =================
 function renderMobile(rows){
 
-  const container=document.getElementById("scheduleCards");
+  const container = document.getElementById("scheduleCards");
   if(!container) return;
 
   if(!rows.length){
-    container.innerHTML="No schedule";
+    container.innerHTML = "No schedule";
     return;
   }
 
-  let html="";
+  let html = "";
 
   rows.forEach(row=>{
 
@@ -122,28 +129,71 @@ function renderMobile(rows){
     if(row.actual_shift) status="Actual";
     if(shift==="OFF"||shift==="Day Off") status="OFF";
 
-    const date=new Date(row.shift_date).toLocaleDateString("id-ID",{day:"2-digit",month:"short"});
+    const date=new Date(row.shift_date)
+      .toLocaleDateString("id-ID",{day:"2-digit",month:"short"});
 
-    html+=`
-    <div class="card mb-2 p-2">
-      <strong>${date}</strong><br>
-      ${shift} (${start} - ${end})<br>
-      Volume: ${row.volume ?? 0}<br>
-      AHT: ${formatToHMS(row.handlingtime_seconds)}<br>
-      ${formatStatus(status)}
+    html += `
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+
+        <div class="d-flex justify-content-between mb-2">
+          <strong>${date}</strong>
+          ${formatStatus(status)}
+        </div>
+
+        <div class="mb-2">
+          <div class="fw-semibold">${shift}</div>
+          <div class="text-muted small">${start} - ${end}</div>
+        </div>
+
+        <div class="row g-2 text-center">
+
+          <div class="col-6">
+            <div class="border rounded p-2">
+              <small class="text-muted">Volume</small>
+              <div class="fw-bold">${row.volume ?? 0}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="border rounded p-2">
+              <small class="text-muted">AHT</small>
+              <div class="fw-bold">${formatToHMS(row.handlingtime_seconds)}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="border rounded p-2">
+              <small class="text-muted">Planned</small>
+              <div class="fw-bold">${row.planned_hours ?? 0}</div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="border rounded p-2">
+              <small class="text-muted">Actual</small>
+              <div class="fw-bold">${row.actual_hours ?? 0}</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
     </div>`;
   });
 
-  container.innerHTML=html;
+  container.innerHTML = html;
 }
 
 // ================= FILTER =================
+function applyFilter(filtered){
+  currentViewData = filtered;
+  renderAll(filtered);
+}
+
 function filterToday(){
   const t=new Date().toDateString();
-  const filtered = scheduleData.filter(r=>new Date(r.shift_date).toDateString()===t);
-
-  renderTable(filtered);
-  updateSummary(filtered);
+  applyFilter(scheduleData.filter(r=>new Date(r.shift_date).toDateString()===t));
 }
 
 function filterWeek(){
@@ -152,25 +202,19 @@ function filterWeek(){
   start.setDate(now.getDate()-(now.getDay()||7)+1);
   const end=new Date(start); end.setDate(start.getDate()+6);
 
-  const filtered = scheduleData.filter(r=>{
+  applyFilter(scheduleData.filter(r=>{
     const d=new Date(r.shift_date);
     return d>=start&&d<=end;
-  });
-
-  renderTable(filtered);
-  updateSummary(filtered);
+  }));
 }
 
 function filterMonth(){
   const now=new Date();
 
-  const filtered = scheduleData.filter(r=>{
+  applyFilter(scheduleData.filter(r=>{
     const d=new Date(r.shift_date);
     return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();
-  });
-
-  renderTable(filtered);
-  updateSummary(filtered);
+  }));
 }
 
 function filterRange(){
@@ -182,13 +226,10 @@ function filterRange(){
   const start=new Date(s);
   const end=new Date(e); end.setHours(23,59,59,999);
 
-  const filtered = scheduleData.filter(r=>{
+  applyFilter(scheduleData.filter(r=>{
     const d=new Date(r.shift_date);
     return d>=start&&d<=end;
-  });
-
-  renderTable(filtered);
-  updateSummary(filtered);
+  }));
 }
 
 // ================= KPI =================
@@ -231,3 +272,8 @@ function formatToHMS(seconds){
   const s=Math.floor(seconds%60);
   return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
 }
+
+// ================= AUTO RERENDER =================
+window.addEventListener("resize", () => {
+  renderTable(currentViewData);
+});
