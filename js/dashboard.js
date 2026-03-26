@@ -1,7 +1,13 @@
+document.body.innerHTML += `
+<div style="position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:9999;font-size:12px;">
+DEBUG SESSION: ${sessionStorage.getItem("wfm_user")}
+</div>
+`;
+
 let session = null;
 
 try {
-  session = JSON.parse(localStorage.getItem("wfm_user"));
+  session = JSON.parse(sessionStorage.getItem("wfm_user"));
 } catch(e){
   console.error("Session error", e);
 }
@@ -70,10 +76,25 @@ window.addEventListener("load", () => {
   }
 });
 
+
+window.addEventListener("load", () => {
+
+  setTimeout(() => {
+    if(window.loadSchedule){
+      console.log("AUTO LOAD SCHEDULE");
+      loadSchedule();
+    } else {
+      console.error("loadSchedule STILL not available");
+    }
+  }, 500);
+
+});
+
+
 // ========================
 // LOGOUT
 // ========================
 function logout(){
-  localStorage.removeItem("wfm_user");
+  sessionStorage.removeItem("wfm_user");;
   window.location.replace("login.html");
 }

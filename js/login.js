@@ -61,7 +61,7 @@ async function login(){
     };
 
     // 🔥 FIX PENTING (PASTIKAN TERSIMPAN)
-    localStorage.setItem("wfm_user", JSON.stringify(sessionUser));
+    sessionStorage.setItem("wfm_user", JSON.stringify(sessionUser));
 
     console.log("SESSION SAVED:", sessionUser);
 
