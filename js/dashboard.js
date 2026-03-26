@@ -46,7 +46,14 @@ document.querySelectorAll("#menuBar button").forEach(btn=>{
 
     switch(btn.dataset.page){
       case "schedule":
-        if(window.loadSchedule) await loadSchedule();
+          if(window.loadSchedule){
+              await loadSchedule();
+          } else {
+              console.warn("loadSchedule not ready, retry...");
+              setTimeout(() => {
+                  if(window.loadSchedule) loadSchedule();
+              }, 300);
+          }
       break;
     }
 

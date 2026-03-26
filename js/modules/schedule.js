@@ -1,6 +1,8 @@
+
+
 let scheduleData = [];
 let currentViewData = [];
-
+console.log("SCHEDULE JS LOADED");
 // ================= LOAD =================
 window.loadSchedule = async function(){
 
