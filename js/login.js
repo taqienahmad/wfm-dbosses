@@ -101,7 +101,7 @@ document.addEventListener("keydown", e => {
 // =======================================
 window.addEventListener("DOMContentLoaded", () => {
 
-  const user = localStorage.getItem("wfm_user");
+  const user = sessionStorage.getItem("wfm_user");
 
   if(user && location.pathname.toLowerCase().includes("login.html")){
     console.log("Already logged in → redirect");
